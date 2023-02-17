@@ -63,4 +63,6 @@ aws sts get-caller-identity
 ```
 output:
 <br>
-![]()
+![aws-cli-config](./week-0-asset/aws-cli-config.png)
+<br>
+
