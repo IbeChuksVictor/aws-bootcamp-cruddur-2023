@@ -40,7 +40,7 @@ tasks:
       sudo ./aws/install
       cd $THEIA_WORKSPACE_ROOT
 ```
-This code ensures ```aws cli``` is installed anytime I set up ```gitpod```
+This code ensures ```AWS CLI``` is installed anytime I set up ```gitpod```
 
 I was able to set up my aws credentials using the environment variable with these set of commands:
 
@@ -57,7 +57,7 @@ gp env AWS_SECRET_ACCESS_KEY="************"
 gp env AWS_DEFAULT_REGION="us-east-1"
 ```
 
-I ran this command to verify ```aws cli``` was installed and configured correctly:
+I ran this command to verify ```AWS CLI``` was installed and configured correctly:
 ```
 aws sts get-caller-identity
 ```
@@ -66,3 +66,24 @@ output:
 ![aws-cli-config](./week-0-asset/aws-cli-config.png)
 <br>
 
+### Enabling Billing
+Using my root account on the ```AWS Console```, on the **Billing page**, I set up my account to send out billing alerts to my email address.
+![Billing page](./week-0-asset/billing-page-showing-alerts-set-up.png)
+<br>
+
+### Creating a Billing Alarm
+I created a billing alarm as required using the ```AWS CLI```.
+I did this by setting up an alarm topic - **SNS topic**, first using this code:
+```
+ aws sns create-topic --name billing-alarm
+ ```
+ output:
+ ![sns output](./week-0-asset/sns-topic-output.png)
+ <br>
+
+ I also had to create a **SNS subcription** for the topic created. I also used the ```AWS CLI```
+ ![sns sub](./week-0-asset/sns-subscription.png)
+ <br>
+
+ The subcription required a confirmation via a link sent to my email.
+ ![](./week-0-asset/sns-sub-confirmation.png)
