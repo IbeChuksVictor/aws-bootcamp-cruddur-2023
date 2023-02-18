@@ -3,12 +3,12 @@
 ## Required Homework
 
 ### Watching Video resources
-I was able to watch all the required videos to gain more insight on the scope of the bootcamp and the scope of the entire project we will be building.
+- I was able to watch all the required videos to gain more insight on the scope of the bootcamp and the scope of the entire project we will be building.
 
-I implemented some of the security best practices recommended by Chirag.
+- I implemented some of the security best practices recommended by Chirag.
 
 ### Concept and Logical diagrams
-I had issues with coming up with drawings for this aspect of the homework but I was able to get past the issues when I reached out to fellow bootcampers.
+- I had issues with coming up with drawings for this aspect of the homework but I was able to get past the issues when I reached out to fellow bootcampers.
 
 This is my own version of the concept diagram:
 
@@ -24,9 +24,9 @@ I was also able to recreate the Logical Architecture diagram [here](https://luci
 
 
 ### Install and Verify AWS CLI
-I followed the video resource and was able to get ```aws cli``` working with ```gitpod```.
+- I followed the video resource and was able to get ```aws cli``` working with ```gitpod```.
 
-I did this by updating the ```.gitpod.yml``` file with this code block:
+- I did this by updating the ```.gitpod.yml``` file with this code block:
 
 ```
 tasks:
@@ -42,14 +42,14 @@ tasks:
 ```
 This code ensures ```AWS CLI``` is installed anytime I set up ```gitpod```
 
-I was able to set up my aws credentials using the environment variable with these set of commands:
+- I was able to set up my aws credentials using the environment variable with these set of commands:
 
 ```
 export AWS_ACCESS_KEY_ID="***********"
 export AWS_SECRET_ACCESS_KEY="**********"
 export AWS_DEFAULT_REGION="us-east-1"
 ```
-To ensure the environment varaibles persisted on ```gitpod```, I ran these commands as well:
+- To ensure the environment varaibles persisted on ```gitpod```, I ran these commands as well:
 
 ```
 gp env AWS_ACCESS_KEY_ID="*************"
@@ -57,7 +57,7 @@ gp env AWS_SECRET_ACCESS_KEY="************"
 gp env AWS_DEFAULT_REGION="us-east-1"
 ```
 
-I ran this command to verify ```AWS CLI``` was installed and configured correctly:
+- I ran this command to verify ```AWS CLI``` was installed and configured correctly:
 ```
 aws sts get-caller-identity
 ```
@@ -67,13 +67,14 @@ output:
 <br>
 
 ### Enabling Billing
-Using my root account on the ```AWS Console```, on the **Billing page**, I set up my account to send out billing alerts to my email address.
+- Using my root account on the ```AWS Console```, on the **Billing page**, I set up my account to send out billing alerts to my email address.
+<br>
 ![Billing page](./week-0-asset/billing-page-showing-alerts-set-up.png)
 <br>
 
 ### Creating a Billing Alarm
-I created a billing alarm as required using the ```AWS CLI```.
-I did this by setting up an alarm topic - **SNS topic**, first using this code:
+- I created a billing alarm as required using the ```AWS CLI```.
+- I did this by setting up an alarm topic - **SNS topic**, first using this code:
 ```
  aws sns create-topic --name billing-alarm
  ```
@@ -81,9 +82,42 @@ I did this by setting up an alarm topic - **SNS topic**, first using this code:
  ![sns output](./week-0-asset/sns-topic-output.png)
  <br>
 
- I also had to create a **SNS subcription** for the topic created. I also used the ```AWS CLI```
+ - I also had to create a **SNS subcription** for the topic created. I also used the ```AWS CLI```
  ![sns sub](./week-0-asset/sns-subscription.png)
  <br>
 
- The subcription required a confirmation via a link sent to my email.
+ - The subcription required a confirmation via a link sent to my email.
+
  ![](./week-0-asset/sns-sub-confirmation.png)
+ <br>
+ - I created a JSON file [alarm-config.json](https://github.com/IbeChuksVictor/aws-bootcamp-cruddur-2023/blob/main/aws/json/alarm-config.json) to define the metrics for the alarm. 
+- I ran the following command to create the alarm:
+```bash
+aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm-config.json
+```
+![billing alarm](./week-0-asset/cloudwatch.png)  
+
+
+ ### Create a Budget
+To create the budget, I did the following:
+- On gitpod, I got my Account ID by running the following command:
+```
+aws sts get-caller-identity --query Account --output text
+```
+- I saved the output which was my account ID as an environment variable using the first command and persisted it on ```gitpod``` using the second command.
+```
+export AWS_ACCOUNT_ID="459355284738"
+
+gp env AWS_ACCOUNT_ID="459355284738"
+```
+- I created a [budget.json](https://github.com/IbeChuksVictor/aws-bootcamp-cruddur-2023/blob/main/aws/json/budget.json) file and a [budget-notifications-with-subscribers](https://github.com/IbeChuksVictor/aws-bootcamp-cruddur-2023/blob/main/aws/json/budget-notification-with-subscribers.json) file
+- I ran the following command to create the budget:
+```
+aws budgets create-budget \
+    --account-id $AWS_ACCOUNT_ID \
+    --budget file://aws/json/budget.json \
+    --notifications-with-subscribers file://aws/json/budget-notifications-with-subscribers.json
+```
+![aws budget](./week-0-asset/aws-budget.png)  
+
+I did not create a second Budget because I was concerned of budget spending going over the 2 budget free limit.
