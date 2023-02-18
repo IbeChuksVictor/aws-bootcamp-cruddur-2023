@@ -123,4 +123,4 @@ aws budgets create-budget \
 ![aws budget](./week-0-asset/aws-budget.png)  
 
 - I did not create a second Budget because I was concerned of budget spending going over the 2 budget free limit.
-- Finally, I learnt a great deal about ```markdown``` files from writing this one.
+- Finally, I learnt a great deal about ```markdown``` files from writing this one. It was fun to learn about it.
