@@ -24,7 +24,7 @@ I was also able to recreate the Logical Architecture diagram [here](https://luci
 
 
 ### Install and Verify AWS CLI
-- I followed the video resource and was able to get ```aws cli``` working with ```gitpod```.
+- I followed the video resource and was able to get ```AWS CLI``` working with ```gitpod```.
 
 - I did this by updating the ```.gitpod.yml``` file with this code block:
 
@@ -67,7 +67,7 @@ output:
 <br>
 
 ### Enabling Billing
-- Using my root account on the ```AWS Console```, on the **Billing page**, I set up my account to send out billing alerts to my email address.
+- Using my root account on the **AWS Console**, on the **Billing page**, I set up my account to send out billing alerts to my email address.
 <br>
 ![Billing page](./week-0-asset/billing-page-showing-alerts-set-up.png)
 <br>
@@ -90,11 +90,13 @@ output:
 
  ![](./week-0-asset/sns-sub-confirmation.png)
  <br>
- - I created a JSON file [alarm-config.json](https://github.com/IbeChuksVictor/aws-bootcamp-cruddur-2023/blob/main/aws/json/alarm-config.json) to define the metrics for the alarm. 
+ - I created a ```.json``` file [alarm-config.json](https://github.com/IbeChuksVictor/aws-bootcamp-cruddur-2023/blob/main/aws/json/alarm-config.json) to define the metrics for the alarm. 
 - I ran the following command to create the alarm:
 ```bash
 aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm-config.json
 ```
+Below is what it looks like on the **AWS Console**
+
 ![billing alarm](./week-0-asset/cloudwatch.png)  
 
 
